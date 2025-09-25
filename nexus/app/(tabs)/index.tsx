@@ -1,34 +1,13 @@
 import ProductCard from '@/components/ProductCard';
 import { featuresProduct } from '@/data/mockProduct';
-import { useState } from "react";
 import { FlatList, Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { category } from '../../data/mockProduct';
 
 
 export default function HomeScreen() {
-  const [query, setQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<'All' | string>('All');
-  const [page, setPage] = useState(1);
-  // const PAGE_SIZE = 8;
-
-  // const filtered = useMemo(() => {
-  //   return PRODUCTS.filter((p: Product) => {
-  //     const matchCategory = selectedCategory === 'All' ? true : p.category === selectedCategory;
-  //     const metchQuery = p.title.toLowerCase().includes(query.toLowerCase()) || p.description.toLowerCase().includes(query.toLowerCase());
-  //     return matchCategory && metchQuery;
-  //   })
-  // }, [query, selectedCategory]);
-
-  // const paginated = filtered.slice(0, page * PAGE_SIZE);
 
   return (
     <ScrollView className='bg-foreground flex-1 p-4'>
-        {/* <TextInput
-          value={query}
-          onChangeText={setQuery}
-          placeholder="Search products..."
-          className="bg-white rounded-xl p-3 mb-3" /> */}
-
         <View className="flex-col items-center justify-center px-4 py-6 mb-3 h-[40vh] w-full relative  ">
 
           <Text className="text-3xl font-bold text-center mb-4">
@@ -37,7 +16,7 @@ export default function HomeScreen() {
           </Text>
           <Image
             source={require('../../assets/images/hero2.png')}
-            className="w-48 h-48 "
+            className="w-48 h-48 -mt-6 "
             resizeMode="contain"
           />
         </View>
