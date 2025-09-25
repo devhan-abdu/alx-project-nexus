@@ -1,28 +1,27 @@
-import { PRODUCTS } from "@/data/mockProduct";
-import { Product } from "@/types";
+import { Cart } from "@/interface";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { decreaseCartQuantity, increaseCartQuantity, removeCartItem, selectCartItems, selectTotalPrice } from "@/redux/slices/cartSlice";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { SwipeListView } from 'react-native-swipe-list-view';
 
-const CartCard = ({ product }: { product: Product }) => {
+const CartCard = ({ cartItem }: { cartItem: Cart }) => {
+    const dispatch = useAppDispatch();
     return (
         <View className="flex-row items-center bg-white shadow-white shadow-xl px-2 py-4 mt-2 rounded-xl">
 
-            <Image source={product.image} className="w-20 h-20" style={{ resizeMode: 'contain' }} />
+            <Image source={cartItem.image} className="w-20 h-20" style={{ resizeMode: 'contain' }} />
             <View className="flex-1 px-4">
-                <Text className="text-lg font-bold">{product.title}</Text>
-                <Text className="text-md text-gray-600 mt-1 font-bold">${product.price}</Text>
+                <Text className="text-lg font-bold">{cartItem.title}</Text>
+                <Text className="text-md text-gray-600 mt-1 font-bold">${cartItem.price}</Text>
             </View>
             <View className="flex-row items-center gap-4 self-end">
-
-
-                <TouchableOpacity onPress={() => console.log("Delete")}>
-                    <Ionicons name="remove-circle" size={24} />
+                <TouchableOpacity onPress={() => dispatch(decreaseCartQuantity(cartItem.id))}>
+                    <Ionicons name="remove" size={24}  />
                 </TouchableOpacity>
-                <Text>1</Text>
-                <TouchableOpacity onPress={() => console.log("Delete")}>
+                <Text>{cartItem.quantity}</Text>
+                <TouchableOpacity onPress={() => dispatch(increaseCartQuantity(cartItem.id))}>
                     <Ionicons name="add-circle" size={24} color="#C7326A" />
                 </TouchableOpacity>
             </View>
@@ -32,11 +31,14 @@ const CartCard = ({ product }: { product: Product }) => {
 }
 
 export default function CartScreen() {
-    const [cartItems, setCartItems] = useState<Product[]>(PRODUCTS);
+     const cartItems = useAppSelector(selectCartItems)
+     const totalPrice = useAppSelector(selectTotalPrice)
+     const dispatch = useAppDispatch();
+
 
     const handleDelete = (rowKey: string) => {
         const newData = cartItems.filter((item) => item.id !== rowKey);
-        setCartItems(newData);
+        dispatch(removeCartItem(rowKey));
     };
     return (
         <ScrollView className="bg-foreground px-3 pt-4">
@@ -48,13 +50,13 @@ export default function CartScreen() {
                 data={cartItems}
                 keyExtractor={(item) => item.id.toString()}
                 scrollEnabled={false}
-                renderItem={({ item }) => <CartCard product={item} />}
+                renderItem={({ item }) => <CartCard cartItem={item} />}
                 renderHiddenItem={(data, rowMap) => (
-                    <View className="w-64 ml-auto flex-1 flex-row justify-end items-center my-2 bg-red-500/90 mx-0 rounded-xl px-4">
+                    <View className="w-64 ml-auto flex-1 flex-row justify-end items-center my-2 bg-red-100 mx-0 rounded-xl px-4">
                         <TouchableOpacity
                             onPress={() => handleDelete(data.item.id)}
                         >
-                            <Ionicons name="trash" size={28} color="#fff" />
+                            <Ionicons name="trash" size={28} color="#DC2626" />
                         </TouchableOpacity>
                     </View>
                 )}
@@ -64,7 +66,7 @@ export default function CartScreen() {
             />
             <View className="flex-row items-center justify-between p-4  my-4">
                 <Text className="text-2xl font-bold ">Total</Text>
-                <Text className="font-semibold">$ 9999</Text>
+                <Text className="font-semibold text-xl">${totalPrice}</Text>
             </View>
             <TouchableOpacity>
                 <View className="bg-primary p-4 rounded-sm items-center mb-10">

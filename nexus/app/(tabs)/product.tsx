@@ -1,6 +1,6 @@
 import ProductCard from "@/components/ProductCard";
 import { PRODUCTS } from "@/data/mockProduct";
-import { Product } from "@/types";
+import { Product } from "@/interface";
 import { Picker } from "@react-native-picker/picker";
 import { useMemo, useState } from "react";
 import { ScrollView, Text, View } from "react-native";
