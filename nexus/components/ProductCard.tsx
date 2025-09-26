@@ -25,7 +25,7 @@ export default function ProductCard({ product }: Props) {
         dispatch(addCartItem(cartItems))
     }
     return (
-        <Link href={{ pathname: "/product/[id]", params: { id: product.id } }} asChild >
+        <Link href={{ pathname: "/product/[slug]", params: { slug: product.slug } }} asChild >
         <TouchableOpacity
             activeOpacity={0.9}
             className="flex-1 bg-white rounded-xl shadow-white shadow-2xl overflow-hidden m-2 py-2"
