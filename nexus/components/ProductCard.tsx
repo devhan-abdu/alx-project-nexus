@@ -1,35 +1,37 @@
 import { useAppDispatch } from '@/redux/hooks';
 import { addCartItem } from '@/redux/slices/cartSlice';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { Link } from 'expo-router';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
-import { Product } from '../interface';
+import { CartItems, Product } from '../interface';
 
 type Props = {
     product: Product;
 };
 
 export default function ProductCard({ product }: Props) {
+
     const dispatch = useAppDispatch();
 
     const addToCart = (product: Product) => {
-        const cartItems = {
-            id: product.id,
+        const cartItems: CartItems = {
+            productId: product.id,
             title: product.title,
             price: product.price,
-            description: product.description,
+            desc: product.shortDesc,
             image: product.image,
             quantity: 1
         }
         dispatch(addCartItem(cartItems))
     }
     return (
-        // <Link href={{ pathname: "/product/[id]", params: { id: product.id } }} asChild >
+        <Link href={{ pathname: "/product/[id]", params: { id: product.id } }} asChild >
         <TouchableOpacity
             activeOpacity={0.9}
             className="flex-1 bg-white rounded-xl shadow-white shadow-2xl overflow-hidden m-2 py-2"
             style={{ minWidth: 0 }}
         >
-            <Image source={product.image} className="w-full h-36" style={{ resizeMode: 'contain' }} />
+            <Image source={{ uri: product.image }} className="w-full h-36" style={{ resizeMode: 'contain' }} />
             <View className="p-3">
                 <Text numberOfLines={1} className="text-lg font-bold">
                     {product.title}
@@ -46,6 +48,6 @@ export default function ProductCard({ product }: Props) {
             </View>
 
         </TouchableOpacity>
-        // </Link>
+         </Link>
     )
 }
