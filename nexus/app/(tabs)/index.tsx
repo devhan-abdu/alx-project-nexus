@@ -9,17 +9,21 @@ import { Button, FlatList, Image, ScrollView, Text, TouchableOpacity, View } fro
 export default function HomeScreen() {
   const { data: categories, error: categoryError, isLoading: categoryIsLoading, refetch: refetchCategories } = useGetCategoriesQuery();
   const { data: featuredProducts, error: FeaturedError, isLoading: FeaturedIsLoading, refetch: refetchFeatured } = useGetFeaturedProductsQuery();
-  const { data: newArrivalProducts, error: newArrivalError, isLoading: newArrivalIsLoading, refetch: newArrivalFeatured } = useGetNewArrivalsQuery();
+  const { data: newArrivalProducts, error: newArrivalError, isLoading: newArrivalIsLoading, refetch: refetchNewArrival } = useGetNewArrivalsQuery();
 
-  if (categoryError) {
+  const retry = () => {
+    refetchCategories();
+    refetchFeatured();
+    refetchNewArrival();
+  }
+
+  if (newArrivalError) {
+    console.log(newArrivalError, FeaturedError, categoryError);
 
     return (
       <View className="flex-1 items-center justify-center">
         <Text className="text-center mb-4">Failed to load data. Please try again later. </Text>
-        <Button title="Retry Categories" onPress={refetchCategories} />
-        {/* <Button title="Retry Featured Products" onPress={refetchFeatured} />
-        <Button title="Retry New Arrivals" onPress={newArrivalFeatured} /> */}
-
+        <Button title="Retry " onPress={retry} />
       </View>
     )
   }
