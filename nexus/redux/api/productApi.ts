@@ -1,17 +1,17 @@
-import { Product } from "@/interface";
+import { Product, ProductDetail } from "@/interface";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const productApi = createApi({
     reducerPath: 'productApi',
-    baseQuery: fetchBaseQuery({ baseUrl: 'http://10.4.111.25:5000/api/' }),
+    baseQuery: fetchBaseQuery({ baseUrl: 'http://10.4.106.239:5000/api/' }),
     endpoints: (builder) => ({
         getProducts: builder.query<Product[], void>({
             query: () => 'products',
             transformResponse: (response: { products: Product[] }) => response.products,
         }),
-        getProductById: builder.query<Product, string>({
-            query: (id) => `products/${id}`,
-            transformResponse: (response: { product: Product }) => response.product,
+        getProductDetail: builder.query<ProductDetail, string>({
+            query: (slug) => `products/${slug}`,
+            transformResponse: (response: { product: ProductDetail }) => response.product,
         }),
         getFeaturedProducts: builder.query<Product[], void>({
             query: () => 'products/featured',
@@ -20,8 +20,13 @@ export const productApi = createApi({
         getNewArrivals: builder.query<Product[], void>({
             query: () => 'products/new-arrivals',
             transformResponse: (response: { newArrivalsProducts: Product[] }) => response.newArrivalsProducts,
+        }),
+        getRelatedProducts: builder.query<Product[], number>({
+            query: (category) => `products/${category}/related`,
+            transformResponse: (response: { relatedProducts: Product[] }) => response.relatedProducts,
+
         })
     }),
 })
 
-export const { useGetProductsQuery, useGetProductByIdQuery, useGetFeaturedProductsQuery, useGetNewArrivalsQuery } = productApi
+export const { useGetProductsQuery, useGetProductDetailQuery, useGetFeaturedProductsQuery, useGetRelatedProductsQuery, useGetNewArrivalsQuery } = productApi
