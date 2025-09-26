@@ -15,7 +15,7 @@ export default function ProductScreen() {
     const { data: categories, error: categoryError, isLoading: categoryIsLoading, refetch: refetchCategories } = useGetCategoriesQuery();
 
     const [query, setQuery] = useState('');
-    const [selectedCategory, setSelectedCategory] = useState<'All' | number>('All');
+    const [selectedCategory, setSelectedCategory] = useState<0 | number>(0);
     const [sortOption, setSortOption] = useState<'default' | 'asc' | 'desc'>('default');
     const [page, setPage] = useState(1);
 
@@ -64,9 +64,15 @@ export default function ProductScreen() {
 
 
             {productIsLoading ? (
-                <View className="flex-row flex-wrap gap-4 mb-4">
-                    {Array.from({ length: PAGE_SIZE }).map((_, index) => <ProductSkeleton key={index} />)}
-                </View>
+                <FlatList
+                    data={Array.from({ length: 12 })}
+                    keyExtractor={(_, index) => index.toString()}
+                    numColumns={2}
+                    scrollEnabled={false}
+                    renderItem={({ index }) => <ProductSkeleton key={index} />}
+                    columnWrapperStyle={{ gap: 16 }}
+                    contentContainerStyle={{ gap: 16, marginBottom: 16 }}
+                />
             ) : (
                 <FlatList
                     data={paginated}
