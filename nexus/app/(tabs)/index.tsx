@@ -8,7 +8,7 @@ import { Button, FlatList, Image, ScrollView, Text, TouchableOpacity, View } fro
 
 export default function HomeScreen() {
   const { data: categories, error: categoryError, isLoading: categoryIsLoading, refetch: refetchCategories } = useGetCategoriesQuery();
-  const { data: featuredProducts, error: FeaturedError, isLoading: FeaturedIsLoading, refetch: refetchFeatured } = useGetFeaturedProductsQuery();
+  const { data: featuredProducts, error: featuredError, isLoading: FeaturedIsLoading, refetch: refetchFeatured } = useGetFeaturedProductsQuery();
   const { data: newArrivalProducts, error: newArrivalError, isLoading: newArrivalIsLoading, refetch: refetchNewArrival } = useGetNewArrivalsQuery();
 
   const retry = () => {
@@ -17,16 +17,19 @@ export default function HomeScreen() {
     refetchNewArrival();
   }
 
-  if (newArrivalError) {
-    console.log(newArrivalError, FeaturedError, categoryError);
-
+  if (newArrivalError || categoryError || featuredError) {
     return (
       <View className="flex-1 items-center justify-center">
-        <Text className="text-center mb-4">Failed to load data. Please try again later. </Text>
-        <Button title="Retry " onPress={retry} />
+        <Text className="text-center mb-4">
+          {categoryError && "Failed to load categories. "}
+          {featuredError && "Failed to load featured products. "}
+          {newArrivalError && "Failed to load new arrivals. "}
+        </Text>
+        <Button title="Retry" onPress={retry} />
       </View>
     )
   }
+
 
   return (
     <ScrollView className='bg-foreground flex-1 p-4'>
