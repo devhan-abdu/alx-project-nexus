@@ -1,50 +1,204 @@
-# Welcome to your Expo app 👋
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+<h1 style="color:red; font-size: 50px; font-family:sans-serif ;">RIkha</h1>
 
-## Get started
 
-1. Install dependencies
+## Screenshots
 
-   ```bash
-   npm install
-   ```
 
-2. Start the app
+<table>
+  <tr>
+    <td style="vertical-align: top; padding: 10px;">
+      <img src="./assets/images/home.jpg" width="100%">
+    </td>
+    <td style="vertical-align: top; padding: 10px;">
+      <img src="./assets/images/product.jpg" width="100%">
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align: top; padding: 10px;">
+      <img src="./assets/images/productDetail.jpg" width="100%">
+    </td>
+    <td style="vertical-align: top; padding: 10px;">
+      <img src="./assets/images/cart1.jpg" width="100%">
+    </td>
+  </tr>
+  <tr>
+    <td style="vertical-align: top; padding: 10px;">
+      <img src="./assets/images/cart2.jpg" width="100%">
+    </td>
+  </tr>
+</table>
 
-   ```bash
-   npx expo start
-   ```
 
-In the output, you'll find options to open the app in a
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
-## Get a fresh project
 
-When you're ready, run:
+## Table of Contents
 
-```bash
-npm run reset-project
-```
+1. [Introduction](#introduction)
+2. [Features](#features)
+3. [Technology Stack](#technology-stack)
+4. [Project Structure](#project-structure)
+5. [API Endpoints](#database-Schema)
+6. [Authors](#authors)
+7. [License](#license)
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
 
-## Learn more
 
-To learn more about developing your project with Expo, look at the following resources:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## Introduction
 
-## Join the community
+# 🚀 Rikha
 
-Join our community of developers creating universal apps.
+Rikha is a **mobile-first e-commerce app** built with React Native. It helps users **browse, explore, and shop products seamlessly** on their mobile devices.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+### 🔧 What It Does
+
+- **Browse Products** – Quickly view products by category.
+- **Product Details** – See images, description, and price.
+- **Add to Cart** – Manage items before checkout.
+- **Pagination & Infinite Scroll** – Smooth browsing for large product lists.
+
+### 🤝 Why Use Rikha?
+
+- 📱 **Mobile-First Design** – Intuitive interface built for React Native.
+- ⚡ **Fast & Responsive** – Optimized for smooth performance.
+- 🛠️ **Robust Backend** – Powered by Express.js with Prisma ORM for database management.
+- ✅ **Scalable Architecture** – Easy to add features like authentication, checkout, or payments in the future.
+
+
+
+## 🚀 Features
+
+Rikha’s app is designed for clarity, speed, and usability. Here's what it includes:
+
+- **🏠 Home Page**  
+  Overview of products and categories with smooth navigation.
+
+- **🛍️ Product Page**  
+  Browse products with pagination and infinite scroll for seamless exploration.
+
+- **📄 Product Detail Page**  
+  In-depth view of a selected product with images and description.
+
+- **🛒 Cart Page**  
+  Add/remove items and see a summary of selected products.
+
+
+
+## 🛠️ Technology Stack
+
+- **Frontend**: React Native, Expo, Redux Toolkit + RTK Query, NativeWind (Tailwind CSS)  
+- **Backend**: Express.js, Prisma ORM  
+- **Database**: PostgreSQL/MySQL (via Prisma)  
+
+
+## Project Structure
+   ```plaintext
+.
+├── README.md
+├── app
+│   ├── (tabs)
+│   │   ├── _layout.tsx
+│   │   ├── cart.tsx
+│   │   ├── index.tsx
+│   │   ├── product.tsx
+│   │   └── profile.tsx
+│   ├── +not-found.tsx
+│   ├── _layout.tsx
+│   └── product
+│       └── [slug].tsx
+├── app.json
+├── assets
+│   └── images
+│       ├── android-icon-background.png
+│       ├── android-icon-foreground.png
+│       ├── android-icon-monochrome.png
+│       ├── cart1.jpg
+│       ├── cart2.jpg
+│       ├── emptycart.png
+│       ├── favicon.png
+│       ├── hero2.png
+│       ├── home.jpg
+│       ├── icon.png
+│       ├── partial-react-logo.png
+│       ├── product.jpg
+│       ├── productDetail.jpg
+│       ├── react-logo.png
+│       ├── react-logo@2x.png
+│       ├── react-logo@3x.png
+│       └── splash-icon.png
+├── babel.config.js
+├── components
+│   ├── CartCard.tsx
+│   ├── CategoryFilter.tsx
+│   ├── EmptyCart.tsx
+│   ├── ProductCard.tsx
+│   ├── SkeletonLoader.tsx
+│   └── SortPicker.tsx
+├── eas.json
+├── eslint.config.js
+├── expo-env.d.ts
+├── global.css
+├── guide.tx
+├── interface
+│   └── index.ts
+├── metro.config.js
+├── nativewind-env.d.ts
+├── package-lock.json
+├── package.json
+├── redux
+│   ├── api
+│   │   ├── categoriesApi.ts
+│   │   └── productApi.ts
+│   ├── hooks.ts
+│   ├── slices
+│   │   └── cartSlice.ts
+│   ├── store.ts
+│   └── storeProvider.tsx
+├── tailwind.config.js
+└── tsconfig.json
+```  
+
+ 
+
+
+
+    
+## 📡 API Endpoints
+
+The backend provides a REST API that powers the Rikha e-commerce app.  
+
+### **Products**
+- **GET** `/products`  
+  → Fetch all products.  
+
+- **GET** `/products/:slug`  
+  → Fetch product details by slug.  
+
+- **GET** `/products/featured`  
+  → Fetch featured products.  
+
+- **GET** `/products/new-arrivals`  
+  → Fetch new arrival products.  
+
+- **GET** `/products/:category/related`  
+  → Fetch related products by category ID.  
+
+
+
+
+
+   ## Author
+
+**Hanan Abdulshikur**  
+- [GitHub](https://github.com/devhan-hub)  
+- [LinkedIn](https://linkedin.com/in/hanan-abdulshikur)
+
+---
+
+## License
+
+This project is licensed under the **MIT License**.  
+Copyright &copy; 2025 Hanan Abdulshikur.
